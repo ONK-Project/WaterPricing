@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models;
+using System;
+using System.Threading.Tasks;
 using WaterPricing.Services;
 
 namespace WaterPricing.Controllers
@@ -13,7 +11,7 @@ namespace WaterPricing.Controllers
     [Route("api/v1/[controller]")]
     public class PriceController : ControllerBase
     {
-    
+
 
         private readonly ILogger<PriceController> _logger;
         private readonly IPublicChargingService _publicChargingService;
@@ -33,7 +31,8 @@ namespace WaterPricing.Controllers
             [FromQuery] double ressourceUsage,
             [FromQuery] string unitOfMeassure)
         {
-            var priceRequest = new PriceRequest(){
+            var priceRequest = new PriceRequest()
+            {
                 DateTime = dateTime,
                 RessourceUsage = ressourceUsage,
                 UnitOfMeassure = unitOfMeassure
@@ -47,7 +46,7 @@ namespace WaterPricing.Controllers
         private async Task<SubmissionPrice> CalculateSubmissionPrice(PriceRequest priceRequest)
         {
             var waterPriceInfo = await _publicChargingService.GetWaterPriceForDate(priceRequest.DateTime);
-            var price = priceRequest.RessourceUsage *  (waterPriceInfo.Price   + waterPriceInfo.Tax);
+            var price = priceRequest.RessourceUsage * (waterPriceInfo.Price + waterPriceInfo.Tax);
 
             var submissionPrice = new SubmissionPrice()
             {

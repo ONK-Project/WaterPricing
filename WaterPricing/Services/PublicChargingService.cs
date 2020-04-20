@@ -2,8 +2,6 @@
 using Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -25,6 +23,7 @@ namespace WaterPricing.Services
 
         public async Task<PriceAndTaxes> GetWaterPriceForDate(DateTime dateTime)
         {
+
             var response = await _httpClient.GetAsync(CreateGetUrl(dateTime));
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -32,6 +31,7 @@ namespace WaterPricing.Services
             var submissionPrice = JsonConvert.DeserializeObject<PriceAndTaxes>(responseBody);
 
             return submissionPrice;
+
         }
 
         private string CreateGetUrl(DateTime dateTime)
