@@ -23,7 +23,7 @@ namespace WaterPricing
         {
             services.AddControllers();
 
-            services.AddScoped<IPublicChargingService, MockPublicChargingService>();
+            services.AddScoped<IPublicChargingService, PublicChargingService>();
             services.AddScoped<HttpClient, HttpClient>();
 
             services.AddSwaggerGen(c =>
