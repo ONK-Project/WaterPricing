@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: waterpricing
-        image: jones109/waterpricing:latest
+        image: 201608930/waterpricing:latest
 ---
 apiVersion: v1
 kind: Service
@@ -30,7 +30,6 @@ spec:
   ports:
     - port: 8080
       targetPort: 80
-  type: LoadBalancer
     
       
       
